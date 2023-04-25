@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 void main() => runApp(const CookingApp());
 
 class CookingApp extends StatelessWidget {
@@ -10,17 +11,19 @@ class CookingApp extends StatelessWidget {
     return MaterialApp(
       title: 'Cooking App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red
       ),
-      home: HomePage(),
+      home: const HomePage(),
       routes: {
-        '/how_you_want': (context) => HowYouWantPage(),
+        '/how_you_want': (context) => const HowYouWantPage(),
       },
     );
   }
 }
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +43,7 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text(
-                'Welcome to the Cooking App!',
+                'Hungry?!',
                 style: TextStyle(fontSize: 24.0),
               ),
               const SizedBox(height: 16.0),
