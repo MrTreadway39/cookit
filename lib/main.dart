@@ -1,40 +1,33 @@
 import 'package:flutter/material.dart';
 
+void main() => runApp(const MyApp());
 
-void main() => runApp(const CookingApp());
-
-class CookingApp extends StatelessWidget {
-  const CookingApp({Key? key});
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Cooking App',
+      title: 'Cookit',
       theme: ThemeData(
-        primarySwatch: Colors.red
+        primarySwatch: Colors.brown,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const HomePage(),
-      routes: {
-        '/how_you_want': (context) => const HowYouWantPage(),
-      },
+      home: const FirstScreen(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class FirstScreen extends StatelessWidget {
+  const FirstScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cooking App'),
-      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/c.jpg")
-            ,
+            image: AssetImage('assets/c.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -43,15 +36,22 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text(
-                'Hungry?!',
-                style: TextStyle(fontSize: 24.0),
+                'Let s see what ingredients you have ',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 70),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/how_you_want');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SecondScreen()),
+                  );
                 },
-                child: const Text('Start Cooking'),
+                child: const Text('Start Cookin :) '),
               ),
             ],
           ),
@@ -61,19 +61,60 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class HowYouWantPage extends StatelessWidget {
-  const HowYouWantPage({super.key});
+class SecondScreen extends StatelessWidget {
+  const SecondScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+// Here's how to modify the AppBar:
       appBar: AppBar(
-        title: const Text('How You Want'),
+        title: const Text('Write what food you want to use '),
+// Change the color of the AppBar
+        backgroundColor: Colors.green,
+// Change the font family, style, and size of the AppBar title
+        titleTextStyle: const TextStyle(
+          fontFamily: 'Arial',
+          fontStyle: FontStyle.italic,
+          fontSize: 18,
+        ),
       ),
-      body: const Center(
-        child: Text(
-          'How do you want to cook?',
-          style: TextStyle(fontSize: 24.0),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/d.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Ingredients'),
+                    content: const Text('List of ingredients goes here'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('CANCEL'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            child: const Text('Add Ingredients'),
+          ),
         ),
       ),
     );
